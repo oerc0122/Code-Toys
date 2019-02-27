@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8"/>
+    <script type="application/javascript" src="main_canvas.js"></script>
+    <script type="application/javascript" src="led.js"></script>
+  </head>
+  <body onload="main();">
+    <canvas id="canvas" width="900" height="900"></canvas><br>
+    <textarea id="code" rows="50" cols="80" ></textarea><br>
+    <button onclick="run();">Run</button><button onclick="died();">Stop</button><button onclick="clean_up();">Label</button><button onclick="clear_code();">Clear</button>
+    <br>
+    <label>Save As:</label><input id="savename" type="text" value="myCode.led"></input><button onclick="download();">Save</button>
+    <br>
+    <label>Upload</label><input id="magic" type="file" onchange="get_file(event);"></input>
+    <br>
+    An interpreter for a BASIC/assembly like language based on a project from my GCSE days. <br>
+    Each row and column is referenced by a binary label, entered in decimal or binary (by ending a number with b). The board is joined by XOR gates, so an operation which affects the board will only operate on matched bits. I.e. 00000111<sub>b</sub> affects rows 1-3, 240<sub>10</sub> affects columns 1-4, 10000001<sub>b</sub> affects column 4 and row 1 except for the point (1,4).
+    A line starting with a # is a comment and does nothing. <br>
+    A line containing one word and ending with a colon is considered a function and can be jumped to with the fun command<br>
+    The current board is not necessarily the board which is displayed on the LEDs, but the board on which you are operating. The board is pushed to the LED board by the out command.
+    <ul>
+      <li>Board Operations</li>
+      <ul>
+	<li>out [?bits] - Draw current board to LED board, optional bits is shorthand for new then out</li>
+	<li>inv [?bits] - NOT entire LED board, optional bits applied a mask which must be a variable from sto</li>
+	<li>sto [var] - Store current board (not lit board) in variable</li>
+	<li>res [var] - Restore stored board to current board</li>	  
+	<li>new [bits] - ZERO entire board and add bits</li>
+	<li>bld [bits] - OR bits</li>
+	<li>swp [bits] - NOT bits</li>
+	<li>off [bits] - ZERO bits</li>
+      </ul>
+      <li>Mathematical Operations</li>
+      <ul>
+	<li>set [var] [value] - Assign a variable a value</li>
+	<li>add [var] [arg1] [arg2] - Assigns the result of the sum of arguments arg1 and arg2 to var.</li>
+	<li>sub [var] [arg1] [arg2] - Assigns the result of the subtraction of arg2 from arg1 to var.</li>
+	<li>mul [var] [arg1] [arg2] - Assigns the result of the product ofarguments arg1 and arg2 to var.</li>
+	<li>mod [var] [arg1] [arg2] - Assigns the result of the modulus of arguments arg1 and arg2 to var.</li>
+	<li>div [var] [arg1] [arg2] - Assigns the result of the quotient of arguments arg1 and arg2 to var.</li>
+	<li>inc [var] - Increments var by 1</li>
+	<li>dec [var] - Decrements var by 1</li>
+	<li>shf [var] [arg1] - Shifts the bits of var by arg1 or 1 if arg1 not specified</li>
+      </ul>
+      <li>Programming Operations</li>
+      <ul>
+	<li>[function]: - Define function</li>
+	<li>fun [function] - Jump to function</li>
+	<li>ret - End function and return to call point</li>
+	<li>jmp [line] - Go to indicated line</li>
+	<li>jif [var] [lt_line] [eq_line] [gt_line] - Arithmetic if. <br>
+	  if var < 0 : jmp lt_line <br>
+		   else if var = 0 : jmp eq_line<br>
+		   else if var > 0 : jmp gt_line</li>
+	<li>rcv [var] - Set var to coordinates of next mouse click</li>
+	<li>rcj [var] [line] - Set var to coordinates of next mouse click and jump to line</li>
+	<li>pse - Wait for mouse input if expected</li>
+	<li>slp [var] - Pause for var milliseconds</li>
+	<li>say [var] - Write the value of var in the JS console</li>
+	<li>nop - Do nothing</li>
+	<li>end - Stop execution</li>
+      </ul>
+    </ul>
+  </body>
+</html>

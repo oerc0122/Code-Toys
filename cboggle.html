@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+ <head>
+  <meta charset="utf-8"/>
+  <script type="application/javascript" src="main_canvas.js">  </script>
+  <script type="application/javascript" src="utility.js">  </script>
+  <script type="application/javascript" src="cboggle.js">  </script>
+ </head>
+ <body onload="main();">
+   <canvas id="canvas" width="400" height="400"></canvas>
+ </body>
+ <p>
+   <label>Grid Size:</label><input id="grid_size" min="3" max="8" step="1" value="4" onchange="updateBar()" type="range"></input><input id="Ngrid_size" readOnly="true" type="number" size="1"></input><br>
+   <button id="roll" onclick="roll();draw();">Roll</button><button id="shuffle" onclick="shuffle();draw();">Shuffle</button><button id="new" onclick="gen_dice(canvas.real_size[0]);roll();shuffle();draw();" >New Game</button><br>
+   <form id="dice-prob">
+   </form>
+ </p>
+ <p id="dice-list"></p>
+</html>

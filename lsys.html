@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+ <head>
+  <meta charset="utf-8"/>
+  <script type="application/javascript" src="lsys.js">
+  </script>
+ </head>
+ <body onload="main();">
+   <canvas id="canvas" width="1000" height="2000"></canvas>
+
+   <form name="mapping"></form>
+   <button onclick="update(); add_rule()">Add Mapping Rule</button>
+   <form name="values"></form>
+   <form name="functions"></form>
+   <button onclick="update(); solve()">Run</button>    <button onclick="help()">Help</button>
+   <p id="help"</p>
+ </body>
+</html>

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="ascii">
+    <script type="application/javascript" src="vector.js"></script>
+    <script type="application/javascript" src="befunge.js"></script>
+  </head>
+  <body onload="main();">
+    <h1>Befunge-93 Interpreter</h1>
+    <table>
+      <tr>
+	<!-- <td><textarea style="overflow:hidden;resize:none;width:100%;height:100%" rows=25 cols=80 id="befunge"></textarea></td> -->
+	<td><div style="font-family: monospace;height:29em; width:48.5em; overflow:hidden; word-break:break-all; resize:none; border:1px solid grey;" id="befunge" onkeypressup="mouseHandle();" onmouseup="mouseHandle();" contenteditable maxlength=2000></div></td>
+	<td><textarea style="resize:none; overflow-x:hidden" id="stack" rows=25 cols=10 readonly></textarea></td>
+      </tr>
+    </table>
+    <table>
+    <tr>
+      <td><textarea style="resize:none; overflow-x:hidden;" id="input" rows=15 cols=45></textarea></td>
+      <td><textarea style="resize:none; overflow-x:hidden;" id="output" rows=15 cols=45 readonly></textarea></td>
+    </tr>
+    </table>
+    <input id="sel" style="width:25px" type="text" readonly></input><button onclick="breakpoint();">Toggle Breakpoint</button></input><button onclick="reverse();">Reverse</button><br>
+    <!-- Need to rescale font to fit 80 chars exactly on zoom -->
+    <button onclick="run();">Run</button><button onclick="run(document.getElementById('time').value);">Slow</button><button id="step" onclick="run_step();">Step</button><button onclick="clear_code();">Clear Code</button><button id="lock" onclick="lock();">Lock</button><button id="lock" onclick="clear_out();">Clear Output</button>
+    <br>
+    <label>Run Speed:</label><input id="time" type="number" value="400" min="1" max="1000" width="15px"></input><label>ms</label>
+    <br>
+    <label>Save As:</label><input id="savename" type="text" value="myCode.bef"></input><button onclick="download();">Save</button>
+    <br>
+    <label>Upload Code:</label><input id="codeUp" type="file" onchange="get_file(event,'befunge');"></input>
+    <br>
+    <label>Upload Input:</label><input id="inputUp" type="file" onchange="get_file(event,'input');"></input>
+    <br>
+  </body>
+</html>

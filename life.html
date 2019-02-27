@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8"/>
+    <script type="application/javascript" src="main_canvas.js"></script>
+    <script type="application/javascript" src="life.js"></script>
+  </head>
+  <body onload="main();">
+    <canvas id="canvas" width="500" height="500"></canvas>
+  </body>
+  <p>
+  <button onclick="stop = false; run();">Run</button>
+  <button onclick="stop = true; pause();">Stop</button><br>
+  <input type="radio" name="action" value="fill"> Fill<br>
+  <input type="radio" name="action" value="erase"> Erase<br>
+  <input type="radio" name="action" value="invert" checked> Invert <br>
+  <input type="radio" name="action" value="random" > Random <br>
+  Grid Scale:<input type="range" id="scale" min="1" max="25" value="15" onchange="grid = change_size(); draw(canvas);"></input> <br>
+  Colour:<input type="color" id="colour" value="#0000AA" onchange="recolour();"></input>
+  </p>
+  <p>
+    Conway's Game of Life <br>
+    <ul>
+      <li>Click to paint.</li>
+      <li>Select using the buttons the way in which you want your brush to work.</li>
+      <li>Watch the chaos unfold.</li>
+    </ul>
+  </p>
+
+</html>

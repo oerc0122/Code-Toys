@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8"/>
+    <script type="application/javascript" src="complex.js"></script>
+    <script type="application/javascript" src="main_canvas.js"></script>
+    <script type="application/javascript" src="julia.js"></script>
+  </head>
+  <body onload="main();">
+    <canvas id="canvas" width="500" height="500"></canvas>  <canvas id="swatch" width="30" height="500"></canvas>
+    <p> Julia set generator. Click and drag a box to zoom. </p>
+    <a id="dlButt"></a>
+    <p id="comp"></p>
+    <form name="values">
+      <fieldset>
+	<legend>Type</legend>
+	<input type="radio" name="typ" value="jul" checked>Julia</input>
+	<input type="radio" name="typ" value="bur">Burning Ship</input>
+	<input type="radio" name="typ" value="ang">Angle</input>
+	<input type="radio" name="typ" value="fie">Field Lines</input>
+      </fieldset>
+      <fieldset>
+	<legend>C</legend>
+	<input type="text" name="init1"> +
+	<input type="text" name="init2"> i<br>
+      </fieldset>
+      <fieldset>
+	<legend>Function</legend>
+	<input tyle="text" name="func"><br>
+      </fieldset>
+      <fieldset>
+	<legend>Domain</legend>
+	<ul>
+	  <li>Real:<br>
+	    Min:<input type="text" name="rdommin"> Max:<input type="text" name="rdommax"> </li> <br>
+	  <li>Imaginary:<br>
+	    Min:<input type="text" name="idommin"> Max:<input type="text" name="idommax"> </li> <br>
+	</ul>
+	Ratio: W:<input readOnly="true" type="text" id="ratioW"></input>H:<input readOnly="true" type="text" id="ratioH"></input>
+      </fieldset>
+      <fieldset>
+	<legend>MaxIter</legend>
+	<input type="text" name="iter"> <br>
+      </fieldset>
+      <fieldset>
+	<legend>Escape</legend>
+	<input type="text" name="escapemin"> <input type="text" name="escape"> <br>
+      </fieldset>
+
+      <fieldset>
+	<legend>Scale</legend>
+	<input type="range" name="width" value="500" min="50" max="2000" onchange="sync_bar();"></input><input type="number" name="widthB" value="500" min="50" max="2000" onchange="sync_bar(true);"></input> <br>
+	<input type="range" name="height" value="500" min="50" max="2000" onchange="sync_bar();"></input><input type="number" name="heightB" value="500" min="50" max="2000" onchange="sync_bar(true);"></input> <br>
+	Ratio: W:<input readOnly="true" type="text" id="SratioW"></input>H:<input readOnly="true" type="text" id="SratioH"></input> <br>
+	<input type="button" name="scaleC" value="Scale canvas to domain" onclick="scale_to_match();"></input>	<input type="button" name="scaleC" value="Scale domain to canvas" onclick="scale_to_match(true);"></input>
+      </fieldset>
+      <fieldset>
+	<legend>Colouration</legend>
+	<input type="radio" name="colour_style" value="0" onchange="update_colour();" checked>1D</input>
+	<input type="radio" name="colour_style" value="1" onchange="update_colour();">3D-RGB</input>
+	<input type="radio" name="colour_style" value="2" onchange="update_colour();">3D-HSV</input>
+	<input type="radio" name="colour_style" value="3" onchange="update_colour();">Orig</input>
+	<input type="radio" name="colour_style" value="4" onchange="update_colour();">Random</input>
+	<fieldset name="colour_set">      </fieldset>
+	<input type="radio" name="colour_met" value="0" onchange="update_colour(true);" checked>Iterations</input>
+	<input type="radio" name="colour_met" value="1" onchange="update_colour(true);">Angle</input>
+	<input type="radio" name="colour_met" value="2" onchange="update_colour(true);">Superposition</input>
+	<input type="radio" name="colour_met" value="3" onchange="update_colour(true);">Decomposition</input>
+      </fieldset>
+      <input type="submit"></input>
+    </form>
+    <button onclick="rerun();">Run</button> <button onclick="rerun(true);">Random</button> <button onclick="dom_reset();">Reset Domain</button> 
+
+    <p>Julia now supports natural maths parsing, enter maths as you would normally in a program:<br>
+      There are 2 variables which are available, z and c. z is the location of the point in the complex plane, c is a constant as defined by the user. <br>
+      The displayed domain is the region as specified in the section "Domain". <br>
+      MaxIter sets the number of iterations the calculation has to reach the value "Escape" before it is deemed stable and set to black. Larger numbers give cleaner plots, but take longer to run. <br>
+      
+    </p>
+    
+    <p>A julia set can be generated using the following implemented functions:
+      <ul>
+	<li>One other argument</li>
+	<ul>
+	  <li>add  (+) - Add complex numbers together</li>
+	  <li>sub  (-) - Subtract one complex number from another</li>
+	  <li>times(*) - Multiply two complex numbers together</li> 
+	  <li>div  (/) - Divide one complex number by another</li>
+	  <li>pow  (^) - Raise the number to a power</li>
+	</ul>
+	<li>No other arguments</li>
+	<ul> 
+	  <li>norm2 - Magnitude of complex number</li> 
+	  <li>arg   - Angle of complex number relative to argand plane</li> 
+	  <li>sign  - Return the negative of the complex number</li>
+	  <li>conj  - Return the complex conjugate of the complex number</li>
+	  <li>cos   - Calculate the cosine of the complex number</li>
+	  <li>sin   - Calculate the sine of the complex number</li>
+	  <li>sinh  - Calculate the hyperbolic sine of the complex number</li>
+	  <li>cosh  - Calculate the hyperbolic cosine of the complex number</li>
+	  <li>exp   - Find the exponential of the complex number</li>
+	  <li>log   - Find the primitive complex logarithm of the complex number</li>
+	</ul>
+      </ul>
+  </body>
+</html>
